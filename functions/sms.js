@@ -1,4 +1,6 @@
-exports.handler = async () => {
+exports.handler = async (event) => {
+  const { body } = JSON.parse(event.body);
+
   return {
     statusCode: 200,
     headers: {
@@ -6,7 +8,7 @@ exports.handler = async () => {
     },
     body: `
       <Response>
-        <Message>boop!</Message>
+        <Message>you sent me: ${body}</Message>
       </Response>
     `,
   };
