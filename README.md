@@ -4,42 +4,39 @@
   </a>
 </p>
 <h1 align="center">
-  Learn With Jason Demo Template
+  Text-To-Play Games with Twilio! (with Nathaniel Okenwa)
 </h1>
 <h3 align="center">
-  This is a base template to use as a starting point for <em>Learn With Jason</em> projects.
+  This app was built live on <em>Learn With Jason</em> and it was super fun and I’m sad you weren’t there.
 </h3>
 <p align="center">
-  Helpful links: 
-  <a href="https://lwj-demo-base.netlify.com"><strong>see the demo</strong></a> · 
-  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/learnwithjason/demo-base&utm_source=learnwithjason&utm_medium=github&utm_campaign=devex"><strong>start a new project</strong></a> · 
-  <a href="https://jason.af/lwj/schedule"><strong>see upcoming episodes of <em>Learn With Jason</em></strong></a>
+  But don’t worry! You can still: 
+  <a href="https://www.learnwithjason.dev/text-to-play-games-with-twilio"><strong>watch the video</strong></a> · 
+  <a href="https://twilio-text-to-vote.netlify.app"><strong>see the demo</strong></a> · 
+  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/learnwithjason/twilio-text-to-vote&utm_source=learnwithjason&utm_medium=github&utm_campaign=devex"><strong>deploy this project</strong></a> · 
+  <a href="https://jason.af/lwj/schedule"><strong>see upcoming episodes</strong></a>
 </p>
 
 &nbsp;
 
-This is a template repo intended to provide some default structure and styles for demo projects. In a nutshell, this provides:
-
-* a styled header
-* a footer with configurable links
-* a main content area that’s centered
-* some generic global defaults (e.g. `box-sizing` reset, CSS variables for fonts, colors, and a few other things)
-
-It’s created with [11ty](https://11ty.dev), but we can always generate the wrapper and copy the built HTML over for use with whatever framework.
+Building interactive experiences that don’t require people to download an app or be present in-person doesn’t have to be hard — in fact, it can be _fun_! Nathaniel Okenwa teaches us how!
 
 &nbsp;
 
 ## More Information
 
+- [Watch this app get built live + see links and additional resources][episode]
 - [Follow _Learn With Jason_ on Twitch][twitch] to watch future episodes live
 - [Add the _Learn With Jason_ schedule to your Google Calendar][cal]
 
 &nbsp;
+
 <p align="center">
-  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/learnwithjason/demo-base&utm_source=learnwithjason&utm_medium=github&utm_campaign=devex">
+  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/learnwithjason/twilio-text-to-vote&utm_source=learnwithjason&utm_medium=github&utm_campaign=devex">
     <img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy this project to Netlify" />
   </a>
 </p>
 
+[episode]: https://www.learnwithjason.dev/text-to-play-games-with-twilio
 [twitch]: https://jason.af/twitch
 [cal]: https://jason.af/lwj/cal
