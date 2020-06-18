@@ -1,8 +1,8 @@
 const qs = require('querystring');
 
 exports.handler = async (event) => {
-  console.log(event.body);
-  const body = qs.parse(event.body);
+  const content = qs.parse(event.body);
+  console.log(content.Body);
 
   return {
     statusCode: 200,
@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     },
     body: `
       <Response>
-        <Message>you sent me: ${body}</Message>
+        <Message>you sent me: ${content.Body}</Message>
       </Response>
     `,
   };
