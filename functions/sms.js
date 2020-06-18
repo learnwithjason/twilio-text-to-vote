@@ -11,7 +11,9 @@ exports.handler = async (event) => {
   // TODO make this an env var
   await twilio.sync
     .services('IS4092c74ea7114dbd561c6788bea4d7cc')
-    .documents.create('LWJ Text To Vote Results');
+    .documents.create({
+      uniqueName: 'LWJ Text To Vote',
+    });
 
   return {
     statusCode: 200,
