@@ -1,5 +1,7 @@
+const qs = require('querystring');
+
 exports.handler = async (event) => {
-  const { body } = JSON.parse(event.body);
+  const { body } = qs.parse(event.body);
 
   return {
     statusCode: 200,
