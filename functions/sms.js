@@ -9,11 +9,9 @@ exports.handler = async (event) => {
   console.log(content.Body);
 
   // TODO make this an env var
-  (
-    await twilio.sync
-      .services('IS4092c74ea7114dbd561c6788bea4d7cc')
-      .documents.create('LWJ Text To Vote Results')
-  ).create();
+  await twilio.sync
+    .services('IS4092c74ea7114dbd561c6788bea4d7cc')
+    .documents.create('LWJ Text To Vote Results');
 
   return {
     statusCode: 200,
