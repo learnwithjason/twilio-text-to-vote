@@ -11,7 +11,7 @@
 </h3>
 <p align="center">
   But don’t worry! You can still: 
-  <a href="https://www.learnwithjason.dev/text-to-play-games-with-twilio"><strong>watch the video</strong></a> · 
+  <a href="https://www.learnwithjason.dev/text-to-play-games-with-twilio"><strong>watch the video</strong></a> (<a href="https://www.learnwithjason.dev/text-to-play-games-with-twilio-part-2"><strong>part 2</strong></a>) · 
   <a href="https://twilio-text-to-vote.netlify.app"><strong>see the demo</strong></a> · 
   <a href="https://app.netlify.com/start/deploy?repository=https://github.com/learnwithjason/twilio-text-to-vote&utm_source=learnwithjason&utm_medium=github&utm_campaign=devex"><strong>deploy this project</strong></a> · 
   <a href="https://jason.af/lwj/schedule"><strong>see upcoming episodes</strong></a>
@@ -25,7 +25,7 @@ Building interactive experiences that don’t require people to download an app 
 
 ## More Information
 
-- [Watch this app get built live + see links and additional resources][episode]
+- [Watch this app get built live + see links and additional resources][episode] (and [part 2](https://www.learnwithjason.dev/text-to-play-games-with-twilio-part-2))
 - [Follow _Learn With Jason_ on Twitch][twitch] to watch future episodes live
 - [Add the _Learn With Jason_ schedule to your Google Calendar][cal]
 
