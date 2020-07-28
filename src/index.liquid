@@ -10,53 +10,80 @@ episode: https://www.learnwithjason.dev/creating-css-variable-font-text-effects
 tutorial: https://codepen.io/jlengstorf/pen/QWbdLjb
 ---
 
-<!-- any HTML we want can go in here, including style and script tags -->
-<style>
-  .wrapper {
-    align-items: center;
-    display: flex;
-    height: 50vh;
-    justify-content: center;
-    min-height: 300px;
-    overflow: hidden;
-  }
+<h1>Twilio Poll</h1>
 
-  h2 {
-    color: #fff;
-    font-family: mallory, futura, arial black, sans-serif;
-    font-size: 22vw;
-    font-weight: 800;
-    letter-spacing: -0.1em;
-    line-height: 1.4;
-    padding: 0 0.25em;
-    text-shadow: 0.1vw 0.1vw #4f4f4f55, 0.1vw -0.1vw #4f4f4f55,
-      -0.1vw 0.1vw #4f4f4f55, -0.1vw -0.1vw #4f4f4f55;
-  }
-
-  @supports ((-webkit-background-clip: text) and (-webkit-text-stroke: 5vw)) {
-    h2 {
-      background: linear-gradient(160deg, #d459ab 0%, #ffdf37 50%, #a6fffa 90%);
-      -webkit-background-clip: text;
-      -webkit-text-stroke: 3.25vw transparent;
-    }
-  }
-
-  @media (min-width: 1000px) {
-    h2 {
-      font-size: 220px;
-      -webkit-text-stroke: 32.5px transparent;
-    }
-  }
-</style>
-
-<h1>This Is a Demo of the Demo</h1>
-
-<div class="wrapper">
-  <h2 contenteditable spellcheck="false">boop.</h2>
+<div class="poll">
+  <div class="chart"></div>
+  <ul class="results">
+    <li class="yes"></li>
+    <li class="no"></li>
+  </ul>
+  <h3>Text +1 406 356 0389 to vote!</h3>
 </div>
 
+<script src="https://unpkg.com/d3@5.16.0/dist/d3.min.js"></script>
 <script src="https://media.twiliocdn.com/sdk/js/sync/v0.12/twilio-sync.min.js"></script>
 <script>
-  // TODO build out a way to display voting results on a web page
-  // this will happen live on July 28: https://learnwithjason.dev/schedule
+  function updateResults(values) {
+    const data = Object.entries(values).map(([name, value]) => ({
+      name,
+      value,
+    }));
+    buildChart(data);
+    Object.entries(values).forEach(([key, value]) => {
+      document.querySelector(`.${key}`).innerText = value;
+    });
+  }
+
+  function buildChart(data) {
+    const x = d3
+      .scaleLinear()
+      .domain([0, d3.max(data, (d) => d.value)])
+      .range([0, 350]);
+    const y = d3
+      .scaleBand()
+      .domain(d3.range(data.length))
+      .rangeRound([0, 100])
+      .padding(0.1);
+
+    const svg = d3.create('svg').attr('viewbox', [0, 0, 350, 100]);
+
+    svg
+      .append('g')
+      .attr('fill', 'steelblue')
+      .selectAll('rect')
+      .data(data)
+      .join('rect')
+      .attr('x', x(0))
+      .attr('y', (_, i) => y(i))
+      .attr('width', (d) => x(d.value) - x(0))
+      .attr('height', y.bandwidth());
+
+    const chart = document.querySelector('.chart');
+    const oldChart = chart.querySelector('svg');
+    if (oldChart) chart.removeChild(oldChart);
+    chart.appendChild(svg.node());
+  }
+
+  async function getToken() {
+    const token = await fetch(
+      '/.netlify/functions/get-twilio-token'
+    ).then((response) => response.text());
+
+    const client = new Twilio.Sync.Client(token, { logLevel: 'info' });
+
+    client.on('connectionStateChanged', (...rest) => {
+      console.log({ rest });
+    });
+
+    const document = await client.document('LWJ Text To Vote');
+    updateResults(document.value);
+
+    document.on('updated', ({ value }) => {
+      console.log(value);
+      updateResults(value);
+    });
+  }
+
+  getToken();
 </script>

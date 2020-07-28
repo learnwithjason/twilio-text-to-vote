@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
   // TODO make this an env var
   const { data } = await twilio.sync
-    .services('IS4092c74ea7114dbd561c6788bea4d7cc')
+    .services(process.env.TWILIO_SERVICE_SID)
     .documents('ET1d2de572e051445f8c7ba65a4d12f52b')
     .fetch();
 
