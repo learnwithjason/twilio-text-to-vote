@@ -10,14 +10,17 @@ episode: https://www.learnwithjason.dev/text-to-play-games-with-twilio
 # tutorial: https://codepen.io/jlengstorf/pen/QWbdLjb
 ---
 
-<h1>Twilio Poll</h1>
+<style>
+  svg {
+    margin: 2em;
+    overflow: visible;
+  }
+</style>
+
+<h1>Twilio Poll: Is Pizza a Sandwich?</h1>
 
 <div class="poll">
   <div class="chart"></div>
-  <ul class="results">
-    <li class="yes"></li>
-    <li class="no"></li>
-  </ul>
   <h3>Text +1 406 356 0389 to vote!</h3>
 </div>
 
@@ -30,39 +33,70 @@ episode: https://www.learnwithjason.dev/text-to-play-games-with-twilio
       value,
     }));
     buildChart(data);
-    Object.entries(values).forEach(([key, value]) => {
-      document.querySelector(`.${key}`).innerText = value;
-    });
   }
 
+  const svg = d3.select('.chart').append('svg');
+
   function buildChart(data) {
-    const x = d3
+    const widthScale = d3
       .scaleLinear()
       .domain([0, d3.max(data, (d) => d.value)])
       .range([0, 350]);
+
     const y = d3
       .scaleBand()
-      .domain(d3.range(data.length))
+      .domain(data.map((v) => v.name))
       .rangeRound([0, 100])
       .padding(0.1);
 
-    const svg = d3.create('svg').attr('viewbox', [0, 0, 350, 100]);
+    const bars = svg
+      .selectAll('g')
+      .data(data, (d) => d.name)
+      .join('g')
+      .attr('transform', (d) => `translate(0, ${y(d.name)})`);
 
-    svg
+    bars
+      .append('rect')
+      .attr('height', y.bandwidth())
+      .attr('fill', '#d459ab')
+      .attr('width', (d) => widthScale(d.value));
+
+    const text = bars
       .append('g')
-      .attr('fill', 'steelblue')
-      .selectAll('rect')
-      .data(data)
-      .join('rect')
-      .attr('x', x(0))
-      .attr('y', (_, i) => y(i))
-      .attr('width', (d) => x(d.value) - x(0))
-      .attr('height', y.bandwidth());
+      .attr('transform', `translate(0, ${y.bandwidth() / 2})`);
 
-    const chart = document.querySelector('.chart');
-    const oldChart = chart.querySelector('svg');
-    if (oldChart) chart.removeChild(oldChart);
-    chart.appendChild(svg.node());
+    text
+      .append('text')
+      .text((d) => d.name)
+      .attr('x', -5)
+      .attr('text-anchor', 'end')
+      .attr('dy', '0.35em');
+
+    text
+      .append('text')
+      .attr('dy', '0.35em')
+      .transition(t)
+      .text((d) => d.value)
+      .attr('x', (d) => widthScale(d.value) + 5);
+
+    // Nathaniel and I are SO sorry
+    // const svg = d3.create('svg').attr('viewbox', [0, 0, 350, 100]);
+
+    // svg
+    //   .append('g')
+    //   .attr('fill', 'steelblue')
+    //   .selectAll('rect')
+    //   .data(data)
+    //   .join('rect')
+    //   .attr('x', x(0))
+    //   .attr('y', (_, i) => y(i))
+    //   .attr('width', (d) => x(d.value) - x(0))
+    //   .attr('height', y.bandwidth());
+
+    // const chart = document.querySelector('.chart');
+    // const oldChart = chart.querySelector('svg');
+    // if (oldChart) chart.removeChild(oldChart);
+    // chart.appendChild(svg.node());
   }
 
   async function getToken() {
